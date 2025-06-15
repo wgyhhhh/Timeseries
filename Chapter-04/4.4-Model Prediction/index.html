@@ -14,6 +14,8 @@
         <link rel="prev" href="../4.3-Model%20Estimation/">
       
       
+        <link rel="next" href="../4.5-Exercises/">
+      
       
       <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.2.7">
@@ -335,6 +337,8 @@
       
         
       
+        
+      
     
     
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
@@ -418,17 +422,6 @@
         
       
       
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    模型预测
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -439,32 +432,26 @@
 
       </a>
       
-        
+    </li>
+  
 
-<nav class="md-nav md-nav--secondary" aria-label="目录">
+              
+            
+              
+                
   
   
   
-    
+    <li class="md-nav__item">
+      <a href="../4.5-Exercises/" class="md-nav__link">
+        
   
+  <span class="md-ellipsis">
+    章节习题
+  </span>
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      目录
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#textar1yule-walker" class="md-nav__link">
-    \(\text{AR}(1)\)过程的Yule-Walker估计
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
+
+      </a>
     </li>
   
 
@@ -497,21 +484,6 @@
     
   
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      目录
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#textar1yule-walker" class="md-nav__link">
-    \(\text{AR}(1)\)过程的Yule-Walker估计
-  </a>
-  
-</li>
-      
-    </ul>
-  
 </nav>
                   </div>
                 </div>
@@ -525,7 +497,7 @@
                   
 
 
-<h1 id="43">4.3 模型估计<a class="headerlink" href="#43" title="Permanent link">&para;</a></h1>
+<h1 id="43">4.3 模型预测<a class="headerlink" href="#43" title="Permanent link">&para;</a></h1>
 <table>
 <thead>
 <tr>
@@ -548,48 +520,39 @@
 </tr>
 </tbody>
 </table>
-<p>在本节中，假设我们从一个<span class="arithmatex">\(\text{ARMA}(p,q)\)</span>过程中得到<span class="arithmatex">\(n\)</span>个观测值<span class="arithmatex">\(x_1,\cdots,x_n\)</span>，并且模型的阶参数<span class="arithmatex">\(p\)</span>和<span class="arithmatex">\(q\)</span>是已知的。我们的目标就是估计参数<span class="arithmatex">\(\mu,\phi_1,\cdots,\phi_p,\theta_1,\cdots,\theta_q\)</span>和<span class="arithmatex">\(\sigma_w^2\)</span>。</p>
-<p>我们从矩估计开始。这些</p>
-<p>因此，在讨论矩方法时，我们假设<span class="arithmatex">\(\mu=0\)</span>。尽管矩估计方法可以产生好的估计量，但它们有时候会导致次优的估计量。我们首先考虑该方法导致最优(有效)估计量的情况，即考虑如下的<span class="arithmatex">\(\text{AR}(p)\)</span>模型：</p>
-<div class="arithmatex">\[\begin{equation}
-    x_t=\phi_1 x_{t-1}+\cdots+\phi_p x_{t-p}+w_t,\tag{4.3.1}
-\end{equation}\]</div>
-<p>对于<span class="arithmatex">\(h=0,1,\cdots,p\)</span>，如果将<span class="arithmatex">\(\text{AR}\)</span>方程的每一边乘以<span class="arithmatex">\(x_{t-h}\)</span>并取期望，则可获得以下结果。</p>
-<p><strong>Yule-Walker方程</strong> 由下式给出：</p>
-<div class="arithmatex">\[\begin{equation}
-    \rho(h)=\phi_1 \rho(h-1)+\cdots+\phi_p \rho(h-p), h=1,2,\cdots,p,\tag{4.3.2}
-\end{equation}\]</div>
-<div class="arithmatex">\[\begin{equation}
-    \sigma_w^2=\gamma(0)[1-\phi_1\rho(1)-\cdots-\phi_p \rho(p)],\tag{4.3.3}
-\end{equation}\]</div>
+<p>在预测中，目标是基于现在为止收集到的数据<span class="arithmatex">\((x_1,\cdots,x_n)\)</span>去预测时间序列的未来值<span class="arithmatex">\(x_{n+m}\)</span>。在本节中，我们假设模型参数是已知的。当模型参数未知时，我们采用它们的估计值进行替代。</p>
+<p>要了解如何预测<span class="arithmatex">\(\text{ARMA}\)</span>过程，研究<span class="arithmatex">\(\text{AR}(1)\)</span>的预测很有帮助：</p>
+<div class="arithmatex">\[x_t=\phi x_{t-1}+w_t\]</div>
+<p>首先，考虑<em>提前一步预测</em>，即给定数据<span class="arithmatex">\(x_1,\cdots,x_n\)</span>，我们希望预测下一个时间点<span class="arithmatex">\(x_{n+1}\)</span>的时间序列值。我们将这一过程称为预测<span class="arithmatex">\(x_{n+1}^n\)</span>。总的来说，符号<span class="arithmatex">\(x_t^n\)</span>是指，给定数据<span class="arithmatex">\(x_1,\cdots,x_n\)</span>时预期的<span class="arithmatex">\(x_t\)</span>。由于</p>
+<div class="arithmatex">\[x_{n+1}=\phi x_n +w_{n+1}\]</div>
+<p>我们有</p>
+<div class="arithmatex">\[x_{n+1}^n=\phi x_n^n+w_{n+1}^n\]</div>
+<p>但是由于我们知道<span class="arithmatex">\(x_n\)</span>(这是我们的观测值之一)，因此<span class="arithmatex">\(x_n^n=x_n\)</span>，并且由于<span class="arithmatex">\(w_{n+1}\)</span>是未来的误差，并且独立于<span class="arithmatex">\(x_1,\cdots,x_n\)</span>，所以我们有<span class="arithmatex">\(w_{n+1}^n=E(w_{n+1})=0\)</span>。因此，<em>提前一步预测</em>是</p>
+<div class="arithmatex">\[x_{n+1}^n=\phi x_n\]</div>
 <div class="admonition note">
-<p class="admonition-title">guangyu 注: 动手推推不难得到</p>
-<p>在<span class="arithmatex">\(\text{AR}(p)\)</span>模型：</p>
-<div class="arithmatex">\[x_t=\phi_1 x_{t-1}+\cdots+\phi_p x_{t-p}+w_t\]</div>
-<p>将方程两边同乘<span class="arithmatex">\(x_{t-h}\)</span>并取期望，则有</p>
-<div class="arithmatex">\[E(x_tx_{t-h})=\phi_1E(x_{t-1}x_{t-h})+\cdots+\phi_pE(x_{t-p}x_{t-h})+E(w_tx_{t-h})\]</div>
-<p>则有</p>
-<p><span class="arithmatex">\(<span class="arithmatex">\(\gamma(h)=\phi_1 \gamma(h-1)+\cdots+\phi_p \gamma(h-p)\)</span>\)</span>
-同时除<span class="arithmatex">\(\gamma(0)\)</span></p>
-<p>则有</p>
-<div class="arithmatex">\[ \rho(h)=\phi_1 \rho(h-1)+\cdots+\phi_p \rho(h-p), h=1,2,\cdots,p,\]</div>
-<p>同时，有</p>
-<div class="arithmatex">\[E(x_tw_t)=E((\phi_1 x_{t-1}+\cdots+\phi_p x_{t-p}+w_t)w_t)=\sigma_w^2\]</div>
-<p>于是对<span class="arithmatex">\(\text{AR}(p)\)</span>方程两边同乘<span class="arithmatex">\(x_t\)</span>并取期望，则有</p>
-<div class="arithmatex">\[E(x_tx_t)=\phi_1E(x_{t-1}x_t)+\cdots+\phi_pE(x_{t-p}x_t)+E(w_tx_t)\]</div>
-<p>即</p>
-<div class="arithmatex">\[\gamma(0)=\phi_1\gamma(1)+\cdots\phi_p\gamma(p)+\sigma_w^2\]</div>
-<p>则得到</p>
-<div class="arithmatex">\[\sigma_w^2=\gamma(0)[1-\phi_1\rho(1)-\cdots-\phi_p \rho(p)]\]</div>
+<p class="admonition-title">guangyu 注: <span class="arithmatex">\(x_t^n的定义如下\)</span></p>
+<p><span class="arithmatex">\(x_t^n=E(x_t |x_1,\cdots,x_n)\)</span></p>
 </div>
-<h2 id="textar1yule-walker"><span class="arithmatex">\(\text{AR}(1)\)</span>过程的Yule-Walker估计<a class="headerlink" href="#textar1yule-walker" title="Permanent link">&para;</a></h2>
-<p>对于一个<span class="arithmatex">\(\text{AR}(1)\)</span>过程，<span class="arithmatex">\((x_t-\mu)=\phi (x_{t-1}-\mu)+w_t\)</span>，均值估计为<span class="arithmatex">\(\hat{\mu}=\bar{x}\)</span>，式(4.3.2)为</p>
-<div class="arithmatex">\[\rho(1)=\phi \rho(0)=\phi\]</div>
-<p>因此期望为</p>
-<div class="arithmatex">\[\hat{\phi}=\hat{\rho}(1)=\frac{\sum_{t=1}^{n-1}\left(x_{t+1}-\bar{x}\right)\left(x_t-\bar{x}\right)}{\sum_{t=1}^{n}\left(x_t-\bar{x}\right)^2}\]</div>
-<p>误差方差估计为</p>
-<div class="arithmatex">\[\hat{\sigma_w^2}=\hat{\gamma(0)}[1-\hat{\phi}^2]\]</div>
-<p>从式(4.3.3)可知，<span class="arithmatex">\(\gamma(0)=\sigma_w^2/(1-\phi^2)\)</span></p>
+<p>提前一步的<em>均方预测误差</em>(<span class="arithmatex">\(\text{MSPE}\)</span>)由下式给出</p>
+<div class="arithmatex">\[P_{n+1}^n=E\left[x_{n+1}-x_{n+1}^n\right]^2=E\left[x_{n+1}-\phi x_n\right]^2=Ew_{n+1}^2=\sigma_w^2\]</div>
+<p>类似地，得到提前两步预测。由于模型是</p>
+<div class="arithmatex">\[x_{n+2}=\phi x_{n+1}+w_{n+2}\]</div>
+<p>我们有</p>
+<div class="arithmatex">\[x_{n+2}^n=\phi x_{n+1}^n+w_{n+2}^n\]</div>
+<p>同样，<span class="arithmatex">\(w_{n+2}\)</span>是未来的误差，因此<span class="arithmatex">\(w_{n+2}^n=0\)</span>。此外，我们已经知道<span class="arithmatex">\(x_{n+1}^n=\phi x_n\)</span>，因此预测为</p>
+<div class="arithmatex">\[x_{n+2}^n=\phi x_{n+1}^n=\phi^2x_n\]</div>
+<p>提前两步的<span class="arithmatex">\(\text{MSPE}\)</span>由下式给出：</p>
+<div class="arithmatex">\[\begin{aligned}P_{n+2}^{n}&amp;=E\left[x_{n+2}-x_{n+2}^n\right]^2=E\left[\phi x_{n+1}+w_{n+2}-\phi^2x_n\right]^2\\\\
+&amp;=E\left[w_{n+2}+\phi\left(x_{n+1}-\phi x_{n}\right)\right]^{2}=E\left[w_{n+2}+\phi w_{n+1}\right]^{2}=\sigma_{w}^{2}\left(1+\phi^{2}\right)\end{aligned}\]</div>
+<div class="admonition note">
+<p class="admonition-title">guangyu 注: <span class="arithmatex">\(x_t^n的定义如下\)</span></p>
+<div class="arithmatex">\[E\left[w_{n+2}+\phi w_{n+1}\right]^{2}=E[w_{n+2}^2+2\phi w_{n+2}w_{n+1}+\phi^2w_{n+1}^2]=(1+\phi^2)\sigma_w^2\]</div>
+<p>白噪声定义为：一组<strong>不相关</strong>的随机变量<span class="arithmatex">\(w_t\)</span>，并且该组随机变量都具有零均值和有限方差<span class="arithmatex">\(\sigma_w^2\)</span>。</p>
+</div>
+<p>将这些结果推广，对于<span class="arithmatex">\(m=1,2,\cdots\)</span>，很容易得到提前<span class="arithmatex">\(m\)</span>步预测：</p>
+<div class="arithmatex">\[x_{n+m}^n=\phi^m x_n,\tag{}\]</div>
+<p>以及<span class="arithmatex">\(\text{MSPE}\)</span>:</p>
+<div class="arithmatex">\[P_{n+m}^n=E\left[x_{n+m}-x_{n+m}^n\right]^2=\sigma_w^2\left(1+\phi^2+\cdots+\phi^{2(m-1)}\right)\]</div>
 <p>未完待续...(因为就考到这...)</p>
 
 
@@ -635,6 +598,22 @@
             </div>
           </a>
         
+        
+          
+          <a href="../4.5-Exercises/" class="md-footer__link md-footer__link--next" aria-label="下一页: 章节习题" rel="next">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                章节习题
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+            </div>
+          </a>
         
       </nav>
     
