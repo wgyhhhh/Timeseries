@@ -14,6 +14,8 @@
         <link rel="prev" href="../..">
       
       
+        <link rel="next" href="../4.3-Model%20Estimation/">
+      
       
       <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.2.7">
@@ -331,6 +333,10 @@
       
         
       
+        
+      
+        
+      
     
     
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
@@ -452,6 +458,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#textmaq_1" class="md-nav__link">
+    \(\text{MA}(q)\)模型
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -461,6 +474,46 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4.3-Model%20Estimation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    模型估计
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4.4-Model%20Prediction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    模型预测
+  </span>
+  
+
+      </a>
     </li>
   
 
@@ -541,6 +594,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#textmaq_1" class="md-nav__link">
+    \(\text{MA}(q)\)模型
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -586,15 +646,15 @@
 </table>
 <h2 id="1acf">1.自相关函数(ACF)<a class="headerlink" href="#1acf" title="Permanent link">&para;</a></h2>
 <h3 id="textmaq"><span class="arithmatex">\(\text{MA}(q)\)</span>模型<a class="headerlink" href="#textmaq" title="Permanent link">&para;</a></h3>
-<p>为方便起见，将模型写为<span class="arithmatex">\(x_t=\sum_{j=0}^q\theta_j w_{t-j}\)</span>，其中<span class="arithmatex">\(\theta_0=1\)</span>。因为<span class="arithmatex">\(x_t\)</span>是一个白噪声的有限线性组合，所以该过程是平稳地，具有以下自相关函数：
-$$\begin{align}
-\gamma(h) &amp;= \mathrm{cov}(x_{t+h}, x_t) = \mathrm{cov} \left( \sum_{j=0}^{q} \theta_j w_{t+h-j}, \sum_{k=0}^{q} \theta_k w_{t-k} \right) \notag \\
+<p>为方便起见，将模型写为<span class="arithmatex">\(x_t=\sum_{j=0}^q\theta_j w_{t-j}\)</span>，其中<span class="arithmatex">\(\theta_0=1\)</span>。因为<span class="arithmatex">\(x_t\)</span>是一个白噪声的有限线性组合，所以该过程是平稳地，具有以下自相关函数：</p>
+<div class="arithmatex">\[\begin{align}
+\gamma(h) &amp;= \mathrm{cov}(x_{t+h}, x_t) = \mathrm{cov} \left( \sum_{j=0}^{q} \theta_j w_{t+h-j}, \sum_{k=0}^{q} \theta_k w_{t-k} \right) \notag \\\\
 &amp;=\begin{cases}
-\sigma_w^2 \sum_{j=0}^{q-h} \theta_j \theta_{j+h}, &amp; 0 \leq h \leq q \
+\sigma_w^2 \sum_{j=0}^{q-h} \theta_j \theta_{j+h}, &amp; 0 \leq h \leq q \\
 0, &amp; h &gt; q
 \end{cases}\tag{4.2.1}
 \end{align}
-$$</p>
+\]</div>
 <p>从公式中可以看出。在滞后<span class="arithmatex">\(q\)</span>期后的<span class="arithmatex">\(\gamma(h)\)</span>处截尾(cut off)是<span class="arithmatex">\(\text{MA}(q)\)</span>模型的特征。将式<span class="arithmatex">\(\text{4.2.1}\)</span>除以<span class="arithmatex">\(\gamma(0)\)</span>得到<span class="arithmatex">\(\text{MA}(q)\)</span>的<span class="arithmatex">\(\text{ACF}\)</span>:</p>
 <div class="arithmatex">\[\begin{equation}\rho(h) =
 \begin{cases}
@@ -651,16 +711,25 @@ $$</p>
 <p>因此，由于平稳性，<span class="arithmatex">\(\text{PACF}(\phi_{hh})\)</span>是<span class="arithmatex">\(x_{t+h}\)</span>和<span class="arithmatex">\(x_t\)</span>除去了<span class="arithmatex">\(\{x_{t+1},...,x_{t+h-1}\}\)</span>的线性影响后的相关性关系。</p>
 <h3 id="textarp"><span class="arithmatex">\(\text{AR}(p)\)</span>模型<a class="headerlink" href="#textarp" title="Permanent link">&para;</a></h3>
 <p>对于所有滞后期大于<span class="arithmatex">\(p\)</span>的<span class="arithmatex">\(\text{AR}(p)\)</span>模型，其<span class="arithmatex">\(\text{PACF}\)</span>将为<span class="arithmatex">\(0\)</span>，滞后期为<span class="arithmatex">\(p\)</span>期的<span class="arithmatex">\(\text{PACF}\)</span>不可为<span class="arithmatex">\(0\)</span>。因为可以证明<span class="arithmatex">\(\phi_{pp}=\phi_{p}\)</span>(模型最后的一个参数)。</p>
-<p>对于<span class="arithmatex">\(\text{AR}(2)\)</span>模型：
-<span class="arithmatex">\(<span class="arithmatex">\(\begin{equation}
+<p>对于<span class="arithmatex">\(\text{AR}(2)\)</span>模型：</p>
+<div class="arithmatex">\[\begin{equation}
     x_t=1.5x_{t-1}-0.75x_{t-2}+w_t
     \nonumber
-\end{equation}\)</span>\)</span></p>
+\end{equation}\]</div>
 <p>在这里，<span class="arithmatex">\(\phi_{11}=\rho(1)=\phi_1/(1-\phi_2)=1.5/1.75\approx0.86,\phi_{22}=\phi_2=-0.75,\)</span>，对于<span class="arithmatex">\(h&gt;2\)</span>,<span class="arithmatex">\(\phi_{hh}=0\)</span>。 </p>
 <p><img alt="" src="../../img/04/fig-4-1.png" /></p>
 <blockquote>
 <p>图 4.1：展示了该<span class="arithmatex">\(\text{AR}(2)\)</span>模型的<span class="arithmatex">\(\text{ACF}\)</span>和<span class="arithmatex">\(\text{PACF}\)</span>。</p>
 </blockquote>
+<h3 id="textmaq_1"><span class="arithmatex">\(\text{MA}(q)\)</span>模型<a class="headerlink" href="#textmaq_1" title="Permanent link">&para;</a></h3>
+<p>对于可逆的<span class="arithmatex">\(\text{MA}(q)\)</span>，具有一个<span class="arithmatex">\(\text{AR}(\infty)\)</span>:</p>
+<div class="arithmatex">\[\begin{equation}
+    x_t=-\sum_{j=1}^\infty\pi_jx_{t-j}+w_t
+\end{equation}\]</div>
+<p>此外，模型不存在项数有限的表达式。因此，从这个结果可以明显地看出，该序列的<span class="arithmatex">\(\text{PACF}\)</span>不会像<span class="arithmatex">\(\text{AR}(p)\)</span>模型一样截尾。对于一个<span class="arithmatex">\(\text{MA}(1)\)</span>模型，<span class="arithmatex">\(x_t=w_t+\theta w_{t-1}\)</span>，其中<span class="arithmatex">\(|\theta|&lt;1\)</span>，可以证明:</p>
+<div class="arithmatex">\[\begin{equation}
+\phi_{hh}=-\frac{(-\theta)^h(1-\theta^2)}{1-\theta^{2(h+1)}},\quad h\geqslant1
+\end{equation}\]</div>
 
 
 
@@ -705,6 +774,22 @@ $$</p>
             </div>
           </a>
         
+        
+          
+          <a href="../4.3-Model%20Estimation/" class="md-footer__link md-footer__link--next" aria-label="下一页: 模型估计" rel="next">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                模型估计
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+            </div>
+          </a>
         
       </nav>
     
