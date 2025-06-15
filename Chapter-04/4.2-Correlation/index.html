@@ -48,6 +48,8 @@
     
       <link rel="stylesheet" href="../../css/misc.css">
     
+      <link rel="stylesheet" href="../../css/custom.css">
+    
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -418,14 +420,14 @@
         
           <li class="md-nav__item">
   <a href="#textmaq" class="md-nav__link">
-    \(\text{MA}(q)\)的自相关函数
+    \(\text{MA}(q)\)模型
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#textarptextarmapqacf" class="md-nav__link">
-    \(\text{AR}(p)\)模型和\(\text{ARMA}(p,q)\)模型的ACF
+  <a href="#textarptextarmapq" class="md-nav__link">
+    \(\text{AR}(p)\)和\(\text{ARMA}(p,q)\)模型
   </a>
   
 </li>
@@ -444,8 +446,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#textarptextpacf" class="md-nav__link">
-    \(\text{AR}(p)\)模型的\(\text{PACF}\)
+  <a href="#textarp" class="md-nav__link">
+    \(\text{AR}(p)\)模型
   </a>
   
 </li>
@@ -507,14 +509,14 @@
         
           <li class="md-nav__item">
   <a href="#textmaq" class="md-nav__link">
-    \(\text{MA}(q)\)的自相关函数
+    \(\text{MA}(q)\)模型
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#textarptextarmapqacf" class="md-nav__link">
-    \(\text{AR}(p)\)模型和\(\text{ARMA}(p,q)\)模型的ACF
+  <a href="#textarptextarmapq" class="md-nav__link">
+    \(\text{AR}(p)\)和\(\text{ARMA}(p,q)\)模型
   </a>
   
 </li>
@@ -533,8 +535,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#textarptextpacf" class="md-nav__link">
-    \(\text{AR}(p)\)模型的\(\text{PACF}\)
+  <a href="#textarp" class="md-nav__link">
+    \(\text{AR}(p)\)模型
   </a>
   
 </li>
@@ -564,21 +566,17 @@
 <thead>
 <tr>
 <th>原文</th>
-<th><a href="https://esl.hohoweiya.xyz/book/The%20Elements%20of%20Statistical%20Learning.pdf#page=122">The Elements of Statistical Learning</a></th>
+<th><a href="https://www.stat.pitt.edu/stoffer/tsda/">Time Series for Data Science - R Code used in Time Series: A Data Analysis Approach Using R</a></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>翻译</td>
-<td>szcf-weiya</td>
+<td>作者</td>
+<td>Guangyu Wei</td>
 </tr>
 <tr>
 <td>发布</td>
-<td>2016-12-16</td>
-</tr>
-<tr>
-<td>更新</td>
-<td>{{ git_revision_date }}</td>
+<td>2025-06-15</td>
 </tr>
 <tr>
 <td>状态</td>
@@ -586,13 +584,12 @@
 </tr>
 </tbody>
 </table>
-<h3 id="1acf">1.自相关函数(ACF)<a class="headerlink" href="#1acf" title="Permanent link">&para;</a></h3>
-<h4 id="textmaq"><span class="arithmatex">\(\text{MA}(q)\)</span>的自相关函数<a class="headerlink" href="#textmaq" title="Permanent link">&para;</a></h4>
+<h2 id="1acf">1.自相关函数(ACF)<a class="headerlink" href="#1acf" title="Permanent link">&para;</a></h2>
+<h3 id="textmaq"><span class="arithmatex">\(\text{MA}(q)\)</span>模型<a class="headerlink" href="#textmaq" title="Permanent link">&para;</a></h3>
 <p>为方便起见，将模型写为<span class="arithmatex">\(x_t=\sum_{j=0}^q\theta_j w_{t-j}\)</span>，其中<span class="arithmatex">\(\theta_0=1\)</span>。因为<span class="arithmatex">\(x_t\)</span>是一个白噪声的有限线性组合，所以该过程是平稳地，具有以下自相关函数：
 $$\begin{align}
-\gamma(h) &amp;= \mathrm{cov}(x_{t+h}, x_t) = \mathrm{cov} \left( \sum_{j=0}^{q} \theta_j w_{t+h-j}, \sum_{k=0}^{q} \theta_k w_{t-k} \right) \notag \
-&amp;= 
-\begin{cases}
+\gamma(h) &amp;= \mathrm{cov}(x_{t+h}, x_t) = \mathrm{cov} \left( \sum_{j=0}^{q} \theta_j w_{t+h-j}, \sum_{k=0}^{q} \theta_k w_{t-k} \right) \notag \\
+&amp;=\begin{cases}
 \sigma_w^2 \sum_{j=0}^{q-h} \theta_j \theta_{j+h}, &amp; 0 \leq h \leq q \
 0, &amp; h &gt; q
 \end{cases}\tag{4.2.1}
@@ -607,11 +604,11 @@ $$</p>
 \end{equation}
 \]</div>
 <p>另外我们注意到，因为<span class="arithmatex">\(\theta_q\neq0\)</span>，所以<span class="arithmatex">\(\rho(q)\neq 0\)</span>。</p>
-<h4 id="textarptextarmapqacf"><span class="arithmatex">\(\text{AR}(p)\)</span>模型和<span class="arithmatex">\(\text{ARMA}(p,q)\)</span>模型的ACF<a class="headerlink" href="#textarptextarmapqacf" title="Permanent link">&para;</a></h4>
-<p>对于一个<span class="arithmatex">\(\text{AR}(p)\)</span>模型或<span class="arithmatex">\(\text{ARMA}(p,q)\)</span>模型，将其写为因果<span class="arithmatex">\(\text{MA}(\infty)\)</span>的形式：
-<span class="arithmatex">\(<span class="arithmatex">\(\begin{equation}
+<h3 id="textarptextarmapq"><span class="arithmatex">\(\text{AR}(p)\)</span>和<span class="arithmatex">\(\text{ARMA}(p,q)\)</span>模型<a class="headerlink" href="#textarptextarmapq" title="Permanent link">&para;</a></h3>
+<p>对于一个<span class="arithmatex">\(\text{AR}(p)\)</span>模型或<span class="arithmatex">\(\text{ARMA}(p,q)\)</span>模型，将其写为因果<span class="arithmatex">\(\text{MA}(\infty)\)</span>的形式：</p>
+<div class="arithmatex">\[\begin{equation}
     x_t=\sum_{j=0}^\infty\psi_jw_{t-j}
-\end{equation}\tag{4.2.3}\)</span>\)</span></p>
+\end{equation}\tag{4.2.3}\]</div>
 <p>从而，<span class="arithmatex">\(x_t\)</span>的自协方差可以写成</p>
 <div class="arithmatex">\[\begin{equation}
 \gamma(h)=\mathrm{cov}\left(x_{t+h},x_{t}\right)=\sigma_{w}^{2}\sum_{j=0}^{\infty}\psi_{j+h}\psi_{j},\quad h\geqslant0\tag{4.2.4}
@@ -627,7 +624,7 @@ $$</p>
 \rho(h)=\frac{\gamma(h)}{\gamma(0)}=\frac{\sum_{j=0}^\infty\psi_{j+h}\psi_j}{\sum_{j=0}^\infty\psi_j^2},\quad h\geqslant0\tag{4.2.5}
 \end{equation}\]</div>
 <p>与<span class="arithmatex">\(\text{MA}(q)\)</span>模型不同，<span class="arithmatex">\(\text{AR}(p)\)</span>模型和<span class="arithmatex">\(\text{ARMA}(p,q)\)</span>模型的<span class="arithmatex">\(\text{ACF}\)</span>不在任何滞后期截尾，因此很难使用<span class="arithmatex">\(\text{ACF}\)</span>识别<span class="arithmatex">\(\text{AR}\)</span>模型或<span class="arithmatex">\(\text{ARMA}\)</span>模型的阶数。</p>
-<h3 id="2-pacf">2. 偏自相关函数(PACF)<a class="headerlink" href="#2-pacf" title="Permanent link">&para;</a></h3>
+<h2 id="2-pacf">2. 偏自相关函数(PACF)<a class="headerlink" href="#2-pacf" title="Permanent link">&para;</a></h2>
 <p>在式<span class="arithmatex">\(\text{(4.2.2)}\)</span>中，我们看到<span class="arithmatex">\(\text{MA}(q)\)</span>的<span class="arithmatex">\(\text{ACF}\)</span>值在滞后期大于<span class="arithmatex">\(q\)</span>时会变成<span class="arithmatex">\(0\)</span>。此外，因为<span class="arithmatex">\(\theta_q\neq 0\)</span>，所以<span class="arithmatex">\(\text{ACF}\)</span>在滞后期数为<span class="arithmatex">\(q\)</span>时并不为<span class="arithmatex">\(0\)</span>。因此，当过程是移动平均过程时，<span class="arithmatex">\(\text{ACF}\)</span>会提供大量关于依赖性的阶数的信息。</p>
 <p>然而，如果过程为<span class="arithmatex">\(\text{ARMA}\)</span>或<span class="arithmatex">\(\text{AR}\)</span>模型，则单靠<span class="arithmatex">\(\text{ACF}\)</span>仅能提供很少关于依赖性的阶数的信息。因此，为了确定<span class="arithmatex">\(\text{AR}\)</span>模型的阶数，我们需要找一个像<span class="arithmatex">\(\text{MA}(q)\)</span>模型的<span class="arithmatex">\(\text{ACF}\)</span>那样可以提供模型阶数信息的函数，这个函数可以为<span class="arithmatex">\(\text{AR}\)</span>模型提供阶数信息，称为<strong>偏自相关函数</strong>。</p>
 <p>把上述想法应用到时间序列中，考虑一个因果的<span class="arithmatex">\(\text{AR}(1)\)</span>模型<span class="arithmatex">\(x_t=\phi x_{t-1}+w_t\)</span>。然后有</p>
@@ -642,17 +639,17 @@ $$</p>
 <p class="admonition-title">guangyu 注：</p>
 <p>这个地方还不是很清楚，后面解释。</p>
 </div>
-<p>对于<span class="arithmatex">\(h=1,2,...\)</span>，一个平稳过程<span class="arithmatex">\(x_t\)</span>的<strong>偏自相关函数(PACF)</strong>表示为</p>
+<p>对于<span class="arithmatex">\(h=1,2,...\)</span>，一个平稳过程<span class="arithmatex">\(x_t\)</span>的 <strong>偏自相关函数(PACF)</strong> 表示为</p>
 <div class="arithmatex">\[\begin{equation}
     \phi_{11}=\mathrm{corr}\left(x_{1},x_{0}\right)=\rho\left(1\right)
-\end{equation}$$
-和
-$$\begin{equation}
+\end{equation}\]</div>
+<p>和</p>
+<div class="arithmatex">\[\begin{equation}
     \phi_{hh}=corr\left(x_{h}-\hat{x}_{h},x_{0}-\hat{x}_{0}\right),\quad h\geqslant2
 \end{equation}\]</div>
 <p>其中 <span class="arithmatex">\(\hat{x}_h\)</span> 是 <span class="arithmatex">\(x_h\)</span> 对 <span class="arithmatex">\(\{x_1, x_2, \cdots, x_{h-1}\}\)</span> 回归得到的结果，<span class="arithmatex">\(\hat{x}_0\)</span> 是 <span class="arithmatex">\(x_0\)</span> 对 <span class="arithmatex">\(\{x_1, x_2, \cdots, x_{h-1}\}\)</span> 回归得到的结果。</p>
 <p>因此，由于平稳性，<span class="arithmatex">\(\text{PACF}(\phi_{hh})\)</span>是<span class="arithmatex">\(x_{t+h}\)</span>和<span class="arithmatex">\(x_t\)</span>除去了<span class="arithmatex">\(\{x_{t+1},...,x_{t+h-1}\}\)</span>的线性影响后的相关性关系。</p>
-<h4 id="textarptextpacf"><span class="arithmatex">\(\text{AR}(p)\)</span>模型的<span class="arithmatex">\(\text{PACF}\)</span><a class="headerlink" href="#textarptextpacf" title="Permanent link">&para;</a></h4>
+<h3 id="textarp"><span class="arithmatex">\(\text{AR}(p)\)</span>模型<a class="headerlink" href="#textarp" title="Permanent link">&para;</a></h3>
 <p>对于所有滞后期大于<span class="arithmatex">\(p\)</span>的<span class="arithmatex">\(\text{AR}(p)\)</span>模型，其<span class="arithmatex">\(\text{PACF}\)</span>将为<span class="arithmatex">\(0\)</span>，滞后期为<span class="arithmatex">\(p\)</span>期的<span class="arithmatex">\(\text{PACF}\)</span>不可为<span class="arithmatex">\(0\)</span>。因为可以证明<span class="arithmatex">\(\phi_{pp}=\phi_{p}\)</span>(模型最后的一个参数)。</p>
 <p>对于<span class="arithmatex">\(\text{AR}(2)\)</span>模型：
 <span class="arithmatex">\(<span class="arithmatex">\(\begin{equation}
